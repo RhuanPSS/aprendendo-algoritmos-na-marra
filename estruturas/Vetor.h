@@ -36,7 +36,8 @@ public:
         construtor de cópia e operador de atribuição, você
         quase sempre precisa definir os três.
     */
-    // ou seja, eu só tinha lembrado da primeira regra kk (nem sabia q era regra...)
+    // ou seja, eu só tinha lembrado de uma regra kk (nem sabia q tinha regra...)
+
     // "homens. Destruam tudo e todos. Ataquem o templo de Atena."
     // (Destrutor, a primeira regra esquecida :3)
     ~vetor() { delete[] arr; }
