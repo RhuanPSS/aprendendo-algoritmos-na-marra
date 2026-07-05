@@ -1,20 +1,19 @@
 #include <iostream>
 #include "estruturas/Vetor.h"
-#include "algoritmos/HeapSort.h"
+#include "algoritmos/Sort.h"
+#include <random> // só pra testar
 using namespace std;
 
 int main() {
     // bo depurar as parada na main
-
-    int n = 10;
-    vetor<int> vet;
-    for (int i = 1; i <= n; ++i) {
-        int j = (i + 3) % n + 1;
-        vet.push_back(j);
+    int n = 35;
+    vetor<int> vet(n);
+    for (int i = 0; i < n; ++i) {
+        vet[i] = rand() % (5 * n);
     }
     for (int i : vet) cout << i << ' ';
-    cout << '\n';
-    heapSort(vet.begin(), vet.end());
+    cout << "\n\n";
+    sort(vet.begin(), vet.end());
     for (int i : vet) cout << i << ' ';
     cout << '\n';
 
