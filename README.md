@@ -1,4 +1,4 @@
-<h3 align="center">Estudando CC do lixo ao luxo</h3>
+<h3 align="center">Estudando Algoritmos do lixo ao luxo</h3>
 
 <p align="center">O verdadeiro aprendizado são as dificuldades que fazemos pelo caminho.</p>
 
