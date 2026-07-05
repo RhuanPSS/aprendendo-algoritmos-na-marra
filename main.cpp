@@ -13,7 +13,9 @@ int main() {
     }
     for (int i : vet) cout << i << ' ';
     cout << "\n\n";
-    sort(vet.begin(), vet.end());
+    sort(vet.begin(), vet.end(), [](const int& a, const int& b){
+        return a > b;
+    });
     for (int i : vet) cout << i << ' ';
     cout << '\n';
 

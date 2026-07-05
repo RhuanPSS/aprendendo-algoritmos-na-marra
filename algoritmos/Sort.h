@@ -29,21 +29,17 @@ void swap(T& a, T& b) {
     b = aux;
 }
 
- template<typename Iterador, typename Comparador>
- Iterador mediana(Iterador a, Iterador b, Iterador c, Comparador cmp) {
+template<typename Iterador>
+Iterador mediana(Iterador a, Iterador b, Iterador c) {
     // 'a' é o valor no meio
-    if (cmp(*b, *a) && !cmp(*a, *c)) return a;
-    if (cmp(*c, *a) && !cmp(*a, *b)) return a;
-
+    if ((*b <= *a && *a <= *c) || (*c <= *a && *a <= *b)) return a;
     // 'b' é o valor no meio
-    if (cmp(*a, *b) && !cmp(*b, *c)) return b;
-    if (cmp(*c, *b) && !cmp(*b, *a)) return b;
-
+    if ((*a <= *b && *b <= *c) || (*c <= *b && *b <= *a)) return b;
     return c;
- }
+}
 
- template<typename Iterador, typename Comparador>
- Iterador particionar(Iterador begin, Iterador end, Comparador cmp) {
+template<typename Iterador, typename Comparador>
+Iterador particionar(Iterador begin, Iterador end, Comparador cmp) {
     // Isso aqui vai pegar o pivot e jogar tudo que é menor que ele
     // à esquerda e tudo que for maior à direita
     auto pivot = end;
@@ -56,7 +52,7 @@ void swap(T& a, T& b) {
     }
     swap(*i, *pivot);
     return i; // retorna o ponto de quebra
- }
+}
 
 template<typename Iterador, typename Comparador>
 void sort(Iterador begin, Iterador end, int chamadas, Comparador cmp) {
@@ -79,12 +75,18 @@ void sort(Iterador begin, Iterador end, int chamadas, Comparador cmp) {
 
     // se nada mencionado anteriormente ocorrer, tá suave fazer quick sort
     Iterador aux = end - 1;
-    Iterador pivot = mediana(begin, begin + len / 2, aux, cmp); // pega a mediana
+    Iterador pivot = mediana(begin, begin + len / 2, aux); // pega a mediana
     swap(*pivot, *aux); // bota ela no fim pra comparar na partição
     Iterador particao = particionar(begin, aux, cmp);
 
     sort(begin, particao, chamadas - 1, cmp); // ordena os menores que pivot
     sort(particao + 1, end, chamadas - 1, cmp); // ordena os maiores que pivot
+}
+
+template<typename Iterador, typename Comparador>
+void sort(Iterador begin, Iterador end, Comparador cmp) {
+    int N = 2 * log2(end - begin);
+    sort(begin, end, N, cmp);
 }
 
 template<typename Iterador>
