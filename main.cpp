@@ -1,21 +1,24 @@
 #include <iostream>
-#include "estruturas/Vetor.h"
+#include "estruturas/MaxHeap.h"
 #include "algoritmos/InsertionSort.h"
 using namespace std;
 
 int main() {
-	// bo depurar as parada na main
+    // bo depurar as parada na main
 
-	vetor<int> vet;
-	vet.push_back(3);
-	vet.push_back(1);
-	vet.push_back(2);
-	vet.push_back(5);
-	vet.push_back(4);
+    maxHeap<int> pq;
+    pq.push(2);
+    pq.push(6);
+    pq.push(8);
+    pq.push(3);
+    pq.push(1);
+    cout  << pq.front() << '\n';
 
-	inSort(vet.begin(), vet.end());
-	for (int i : vet) cout << i << ' ';
-	cout << '\n';
+    while (!pq.empty()) {
+        int f = pq.pop();
+        cout << f << ' ';
+    }
+    cout << '\n';
 
-	return 0;
+    return 0;
 }
