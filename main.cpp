@@ -1,23 +1,16 @@
 #include <iostream>
-#include "estruturas/Vetor.h"
-#include "algoritmos/Sort.h"
-#include <random> // só pra testar
+#include "matematicas/NCK.h"
+#include "matematicas/Modular.h"
+#include "matematicas/FastPow.h"
 using namespace std;
 
 int main() {
     // bo depurar as parada na main
-    int n = 35;
-    vetor<int> vet(n);
-    for (int i = 0; i < n; ++i) {
-        vet[i] = rand() % (5 * n);
-    }
-    for (int i : vet) cout << i << ' ';
-    cout << "\n\n";
-    sort(vet.begin(), vet.end(), [](const int& a, const int& b){
-        return a > b;
-    });
-    for (int i : vet) cout << i << ' ';
-    cout << '\n';
+
+    cout << fpow(3, 15) << '\n';
+    cout << mdc(1086, 828) << '\n';
+    cout << mmc(1086, 828) << '\n';
+    cout << nck(35, 3) << '\n';
 
     return 0;
 }
