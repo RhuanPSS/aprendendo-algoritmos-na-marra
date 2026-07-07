@@ -29,7 +29,7 @@ int64_t mmc(int64_t a, int64_t b) {
 /*
     Ao encontrar o MDC, podemos extender o processo por meio de
     equações diofantinas de duas variáveis.
-    Suponha que g = MCD(a, b)
+    Suponha que g = MDC(a, b)
     Então a * x + b * y = g e temos a "carinha" de uma equação diofantina
     Sabemos que o algoritmo de Euclides termina quando b = 0 e a = g
     portanto, nosso caso base será a = g, x = 1, b = 0 e y = 0
