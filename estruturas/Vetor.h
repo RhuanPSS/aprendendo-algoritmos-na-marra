@@ -113,6 +113,13 @@ public:
         }
     }
 
+    void resize(size_t new_len) { // quase a merma coisa do assign só que sem inicializar os elementos
+        delete[] arr;
+        len = new_len;
+        while (cap < len) cap *= 2;
+        arr = new T[cap];
+    }
+
     // agora os loop for range for loop range for funciona !!!!
     T* begin() { return arr; }
     T* end() { return arr + len; }
