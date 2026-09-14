@@ -22,10 +22,9 @@ Então, podemos realizar um DFS no componente pertencente a um elemento
 e encontrar seu respectivo conjunto.
 Logo, dado dois elementos A e B, verificar se ambos fazem parte do
 mesmo conjunto teria complexidade O(N) no pior caso, em que N é o
-total de elementos. Para Q consultas, teríamos O(Q*N) no pior caso;
+total de elementos. Para Q consultas, teríamos O(Q*N) no pior caso.
+Podemos otimizar a complexidade para praticamente O(Q) com DSU.
 
-Podemos otimizar a complexidade para simplesmente O(Q + N) com
-DSU.
 Dado o conjunto '1' a seguir:
          _ 1
         |
