@@ -18,7 +18,7 @@ entre os elementos. Cada aresta representa que A depende de B
 e/ou vice-versa. Cada componente no grafo representará um
 conjunto e podemos escolher um elemento arbitrário
 pertencente ao componente para representá-lo.
-Então, podemos realizar um DFS no componente percente a um elemento
+Então, podemos realizar um DFS no componente pertencente a um elemento
 e encontrar seu respectivo conjunto.
 Logo, dado dois elementos A e B, verificar se ambos fazem parte do
 mesmo conjunto teria complexidade O(N) no pior caso, em que N é o
