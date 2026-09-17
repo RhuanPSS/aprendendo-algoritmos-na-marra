@@ -2,7 +2,6 @@
 #define Vetor // bo replicar std::vector pq é a melhor STL que tem
 #include <iostream>
 
-// vetor é pop, vetor é vida, vetor é tudo
 template<typename T> // generaliza o tipo pra mim compilador, porfa
 class vetor {
 private:
@@ -23,7 +22,7 @@ public:
         }
     }
 
-    // se passar uma copia ocorre oq? (Rhuan: é algo a se pensar)
+    // se passar uma cópia ocorre oq?
     vetor(const vetor& copia) : cap(copia.cap), len(copia.len), arr(new T[copia.cap]) {
         for (size_t i = 0; i < len; ++i) {
             arr[i] = copia.arr[i];
@@ -36,13 +35,11 @@ public:
         construtor de cópia e operador de atribuição, você
         quase sempre precisa definir os três.
     */
-    // ou seja, eu só tinha lembrado de uma regra kk (nem sabia q tinha regra...)
 
-    // "homens. Destruam tudo e todos. Ataquem o templo de Atena."
-    // (Destrutor, a primeira regra esquecida :3)
+    // Destrutor
     ~vetor() { delete[] arr; }
 
-    // Operador de atribuição (a segunda regra esquecida :3)
+    // Operador de atribuição
     vetor& operator=(const vetor& outro) {
         if (this == outro) return *this;
         delete[] arr;
@@ -55,8 +52,8 @@ public:
         return *this;
     }
 
-    // eu ouvi dizer que é importante diferenciar o operador [] const e não-const, falta estudar o pq agora :P
-    // R: cria um vetor constante e vê se funciona sem as outras versões do operador.
+    // é importante diferenciar o operador [] const e não-const
+    // tenta cria um vetor constante e vê se funciona sem as outras versões do operador. (não funfa)
     const T& operator[](size_t idx) const {
         // considerando size_t como um tipo unsigned, pq é inconveniente checar por idx < 0?
         // R: se é UNsigned, então não tem sinal e não pode ser negativo :/
