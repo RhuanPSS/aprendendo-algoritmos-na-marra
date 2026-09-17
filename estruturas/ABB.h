@@ -120,22 +120,22 @@ class abb {
                 curr->right = deletar(curr->right, aux->key);
             }
             curr->altura = 1 + max(getAltura(curr->left), getAltura(curr->right));
-            int diff = getDiff(curr);
+            int diff = diffAltura(curr);
             // Esquerda-Esquerda
-            if (diff > 1 && getDiff(curr->left) >= 0) {
+            if (diff > 1 && diffAltura(curr->left) >= 0) {
                 return rotDir(curr);
             }
             // Direita-Direita
-            if (diff < -1 && getDiff(curr->right) <= 0) {
+            if (diff < -1 && diffAltura(curr->right) <= 0) {
                 return rotEsq(curr);
             }
             // Esquerda-Direita
-            if (diff > 1 && getDiff(curr->left) < 0) {
+            if (diff > 1 && diffAltura(curr->left) < 0) {
                 curr->left = rotEsq(curr->left);
                 return rotDir(curr);
             }
             // Direita-Esquerda
-            if (diff < -1 && getDiff(curr->right) > 0) {
+            if (diff < -1 && diffAltura(curr->right) > 0) {
                 curr->right = rotDir(curr->right);
                 return rotEsq(curr);
             }
