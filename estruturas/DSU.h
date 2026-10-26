@@ -1,7 +1,6 @@
-#include <iostream>
+#ifndef DSU
+#define DSU
 #include "Vetor.h"
-using namespace std;
-
 /*
 DSU
 D -> Disjoint
@@ -89,80 +88,47 @@ Isto reduz a complexidade do nosso problema para praticamente O(Q)
 em que Q é o número de consultas \o/
 */
 
-int N, Q; // número de elementos no total e número de consultas
-vetor<int> pai, tamanho; // estruturas para o DSU
-
-void init(const int len) {
-    pai.resize(len);
-    tamanho.resize(len);
-    for (int i = 0; i < len; ++i) {
-        pai[i] = i; // inicialmente, todos os elmentos são únicos em seus conjuntos
-        tamanho[i] = 1; // e o tamanho do conjunto é 1 pois só tem ele mesmo.
-    }
-}
-
-int find_set(int v) {
-    // se o nodo atual é pai dele mesmo, então ele é o representante do conjunto.
-    if (pai[v] == v) return v;
-    //return find_set(pai[v]); // versão sem path compressing
-    return pai[v] = find_set(pai[v]); // path compressing
-}
-
-bool union_set(int a, int b) {
-    // primeiro, pega o conjunto de cada elemento
-    a = find_set(a);
-    b = find_set(b);
-    if (a == b) return false; // os dois já fazem parte do mesmo conjunto, então só ignora
-    if (tamanho[a] > tamanho[b]) swap(a, b); // o conjunto a sempre será o menor
-    pai[a] = b; // junta o menor conjunto no maior conjunto
-    tamanho[b] += tamanho[a]; // e soma o tamanho do maior conjunto
-    return true;
-}
-
-int main() {
-    cout << "Quantidade de elementos (indexado em 0): ";
-    cin >> N;
-    cout << "Quantidade de consultas: ";
-    cin >> Q;
-
-    // inicializando as estruturas
-    init(N); // indexado em 0
-
-    for (int i = 1; i <= Q; ++i) {
-        cout << "Consulta " << i << ":\n";
-        cout << "1 -> consulta o conjunto de X.\n";
-        cout << "2 -> consulta se A e B fazem parte do mesmo conjunto.\n";
-        cout << "3 -> junta A e B.\n";
-        int op;
-        cin >> op;
-        switch (op) {
-            case 1:
-                int X;
-                cout << "Informe X: ";
-                cin >> X;
-                cout << "Conjunto de " << X << " = " << find_set(X) << '\n';
-                break;
-            case 2:
-                int A, B;
-                cout << "Informe A e B: ";
-                cin >> A >> B;
-                if (find_set(A) == find_set(B)) {
-                    cout << A << " e " << B << " estão juntos.\n";
-                } else {
-                    cout << A << " e " << B << " estão disjuntos.\n";
-                }
-                break;
-            case 3:
-                cout << "Informe A e B: ";
-                cin >> A >> B;
-                if (union_set(A, B)) cout << "Juntando " << A << " e " << B << '\n';
-                else cout << A << " e " << B << " já estão unidos\n";
-                break;
-            default:
-                cout << "pass\n";
-                break;
+class dsu {
+private:
+    vetor<int> pai;
+    vetor<int> tamanho;
+public:
+    dsu(const int len) {
+        pai.resize(len);
+        tamanho.resize(len);
+        for (int i = 0; i < len; ++i) {
+            pai[i] = i; // inicialmente, todos os elmentos são únicos em seus conjuntos
+            tamanho[i] = 1; // e o tamanho do conjunto é 1 pois só tem ele mesmo.
         }
     }
 
-    return 0;
-}
+    int find_set(int v) {
+        // se o nodo atual é pai dele mesmo, então ele é o representante do conjunto.
+        if (pai[v] == v) return v;
+        //return find_set(pai[v]); // versão sem path compressing
+        return pai[v] = find_set(pai[v]); // path compressing
+    }
+
+    bool union_set(int a, int b) {
+        // primeiro, pega o conjunto de cada elemento
+        a = find_set(a);
+        b = find_set(b);
+        if (a == b) return false; // os dois já fazem parte do mesmo conjunto, então só ignora
+        if (tamanho[a] > tamanho[b]) { // o conjunto a sempre será o menor
+            int temp = a;
+            a = b;
+            b = temp;
+        }
+        pai[a] = b; // junta o menor conjunto no maior conjunto
+        tamanho[b] += tamanho[a]; // e soma o tamanho do maior conjunto
+        return true;
+    }
+
+    bool same_set(int a, int b) {
+        // checa se fazem parte do mesmo conjunto
+        return (find_set(a) == find_set(b));
+    }
+};
+
+#endif
+
