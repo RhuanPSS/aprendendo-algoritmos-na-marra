@@ -59,6 +59,8 @@ compile_commands.json
 *.swp
 main
 main.cpp
+in.txt
+out.txt
 
 # vcpkg
 vcpkg_installed/
