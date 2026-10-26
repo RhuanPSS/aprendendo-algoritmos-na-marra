@@ -49,7 +49,7 @@ Tá, eu entendo que a complexidade é pelo menos O(N) pois estamos
 percorrendo todos os números entre 1 e N. Mas o processo da parte
 de marcar múltiplos como falso também não é O(N)? Isso no final não
 é O(N^2)???
-R: Na verdade... A complexidade de marcar múltiplos não é aproximadamente O(log(log(N)))!
+R: Na verdade... A complexidade de marcar múltiplos é aproximadamente O(log(log(N)))!
 
 Vamos calcular quantos números iremos percorrer em cada primo P:
 2 --> N / 2
