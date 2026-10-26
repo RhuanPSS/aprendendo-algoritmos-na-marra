@@ -1,5 +1,5 @@
-#ifndef DSU
-#define DSU
+#ifndef DSU_h
+#define DSU_h
 #include "Vetor.h"
 /*
 DSU

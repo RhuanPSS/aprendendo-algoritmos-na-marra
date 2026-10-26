@@ -92,7 +92,7 @@ void sort(Iterador begin, Iterador end, Comparador cmp) {
 template<typename Iterador>
 void sort(Iterador begin, Iterador end) {
     int N = 2 * log2(end - begin);
-    sort(begin, end, N, [](const auto& a, const auto& b){
+    sort(begin, end, N, [](const auto& a, const auto& b) {
         return a < b;
     });
 }
