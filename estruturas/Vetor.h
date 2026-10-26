@@ -1,5 +1,5 @@
-#ifndef Vetor
-#define Vetor // bo replicar std::vector pq é a melhor STL que tem
+#ifndef Vetor_h
+#define Vetor_h // bo replicar std::vector pq é a melhor STL que tem
 #include <iostream>
 
 template<typename T> // generaliza o tipo pra mim compilador, porfa
@@ -14,7 +14,7 @@ public:
     vetor() : cap(1), len(0), arr(new T[1]) {}
 
     // construtores inicializados
-    vetor(size_t init_len) : cap(init_len), len(init_len), arr(new T[init_len]()) {}
+    vetor(size_t init_len) : cap(init_len ? init_len : 1), len(init_len), arr(new T[init_len]()) {}
 
     vetor(size_t init_len, T val) : cap(init_len), len(init_len), arr(new T[init_len]) {
         for (size_t i = 0; i < len; ++i) {
@@ -35,20 +35,23 @@ public:
         construtor de cópia e operador de atribuição, você
         quase sempre precisa definir os três.
     */
+    // Acabei de descobrir que existe um "Rule of Five" também KKKKKK
+    // esse eu vejo e te aviso depois :3
 
     // Destrutor
     ~vetor() { delete[] arr; }
 
     // Operador de atribuição
     vetor& operator=(const vetor& outro) {
-        if (this == outro) return *this;
+        if (this == &outro) return *this;
+        T* novo = new T[outro.cap];
+        for (size_t i = 0; i < outro.len; ++i) {
+            novo[i] = outro.arr[i];
+        }
         delete[] arr;
+        arr = novo;
         cap = outro.cap;
         len = outro.len;
-        arr = new T[cap];
-        for (size_t i = 0; i < len; ++i) {
-            arr[i] = outro.arr[i];
-        }
         return *this;
     }
 
@@ -76,7 +79,23 @@ public:
 
     bool empty() const { return len == 0; }
 
-    void push_back(T x) {
+    T& back() {
+        if (empty()) {
+            std::cerr << "Vetor tá vazio man D:\n";
+            std::exit(1);
+        }
+        return arr[len - 1];
+    }
+
+    const T& back() const {
+        if (empty()) {
+            std::cerr << "Vetor tá vazio man D:\n";
+            std::exit(1);
+        }
+        return arr[len - 1];
+    }
+
+    void push_back(const T& x) {
         if (len == cap) { // se liga no bixão crescendo
             cap *= 2;
             T* temp = new T[cap];
@@ -100,7 +119,7 @@ public:
         return popado;
     }
 
-    void assign(size_t new_len, T val) { // nem sei se vou usar isso, mas é interessante \o/
+    void assign(size_t new_len, const T& val) { // nem sei se vou usar isso, mas é interessante \o/
         delete[] arr;
         cap = 1, len = new_len;
         while (cap < len) cap *= 2;
@@ -110,11 +129,22 @@ public:
         }
     }
 
-    void resize(size_t new_len) { // quase a merma coisa do assign só que sem inicializar os elementos
-        delete[] arr;
+    // quase a merma funcionalidade do assign só que mantendo os elementos antigos
+    void resize(size_t new_len) { // e inicializando espaços vazios.
+        if (cap < new_len) { // Caso em que temos de crescer o vetor
+            size_t new_cap = cap ? cap : 1;
+            while (new_cap < new_len) new_cap *= 2;
+            T* novo = new T[new_cap];
+            for (size_t i = 0; i < len; ++i) {
+                novo[i] = arr[i];
+            }
+            delete[] arr;
+            arr = novo;
+            cap = new_cap;
+        }
+        // espaços vazios inicializa com valor nulo
+        for (size_t i = len; i < new_len; ++i) arr[i] = T();
         len = new_len;
-        while (cap < len) cap *= 2;
-        arr = new T[cap];
     }
 
     // agora os loop for range for loop range for funciona !!!!
